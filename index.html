@@ -4,140 +4,177 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScopeCtrl - Stop Working For Free</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* General Body Styles */
+        :root {
+            --aurora-color-1: rgba(99, 102, 241, 0.4); /* Indigo */
+            --aurora-color-2: rgba(139, 92, 246, 0.4); /* Violet */
+        }
+
+        /* --- General Body & Aurora Background Styles --- */
         body {
-            background-color: #0A0A0A; /* Deep Charcoal Background */
-            color: #E0E0E0; /* Light Grey Text */
-            font-family: 'Inter', sans-serif; /* Modern Font */
+            background-color: #000000; /* True Black for max contrast */
+            color: #E0E0E0;
+            font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Ensure full viewport height */
+            min-height: 100vh;
             margin: 0;
-            padding: 20px; /* Add some padding on smaller screens */
-            box-sizing: border-box; /* Include padding in element's total width and height */
-            line-height: 1.6;
-        }
-
-        /* Main Container for the content */
-        .container {
-            max-width: 700px; /* Wider container */
-            width: 100%; /* Ensure it takes full width on smaller screens */
-            padding: 40px; /* More padding inside the box */
-            background-color: #1A1A1A; /* Slightly lighter box background */
-            border-radius: 12px; /* Smoother corners */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
-            text-align: center;
-            border: 1px solid #333333; /* Soft border */
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden; /* Hide aurora overflow */
             position: relative;
-            overflow: hidden; /* For background gradient */
         }
 
-        /* Background Gradient within the container for visual interest */
-        .container::before {
-            content: '';
+        .aurora-container {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(70, 70, 70, 0.1) 0%, rgba(10, 10, 10, 0) 70%);
-            animation: rotateGradient 15s linear infinite; /* Subtle animation */
-            opacity: 0.3;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%; height: 100%;
             z-index: 0;
+            filter: blur(100px); /* The magic blur effect */
+        }
+        .aurora-shape {
+            position: absolute;
+            border-radius: 50%;
+        }
+        .aurora-shape-1 {
+            width: 500px; height: 500px;
+            background-color: var(--aurora-color-1);
+            top: 10%; left: 10%;
+            animation: moveAurora1 20s infinite alternate ease-in-out;
+        }
+        .aurora-shape-2 {
+            width: 400px; height: 400px;
+            background-color: var(--aurora-color-2);
+            bottom: 10%; right: 10%;
+            animation: moveAurora2 25s infinite alternate ease-in-out;
+        }
+        @keyframes moveAurora1 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 150px); }
+        }
+        @keyframes moveAurora2 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-150px, -100px); }
         }
 
-        /* Animation for the background gradient */
-        @keyframes rotateGradient {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Ensure content is above the background gradient */
-        .content-wrapper {
+        /* --- Glassmorphism Container --- */
+        .container {
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+            background: rgba(26, 26, 26, 0.7); /* Semi-transparent background */
+            backdrop-filter: blur(10px); /* The frosted glass effect */
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
             position: relative;
             z-index: 1;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
 
-        /* Headline Styles */
+        /* --- Entrance Animations --- */
+        .animated {
+            animation: fadeInUp 0.8s both;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Staggered delays for each element */
+        .logo { animation-delay: 0.1s; }
+        h1 { animation-delay: 0.2s; }
+        h2 { animation-delay: 0.3s; }
+        p { animation-delay: 0.4s; }
+        .tally-form-container { animation-delay: 0.5s; }
+        .footer-text { animation-delay: 0.6s; }
+
+        /* --- Content Styles --- */
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 20px;
+            fill: #FFFFFF;
+        }
+
+        /* --- Animated Gradient Text --- */
         h1 {
-            font-size: 3.5rem; /* Larger, more impactful */
-            color: #E2E8F0; /* Brighter white */
-            margin-bottom: 0.5rem;
-            font-weight: 700; /* Bold */
-            letter-spacing: -0.04em; /* Tighter for a modern look */
+            font-size: 3.5rem;
+            font-weight: 800; /* Extra-Bold */
+            letter-spacing: -0.05em;
+            margin: 0;
+            color: transparent; /* Make text transparent */
+            background-clip: text;
+            -webkit-background-clip: text; /* For Safari */
+            background-image: linear-gradient(90deg, #e0e0e0, #ffffff, #e0e0e0);
+            background-size: 200% 100%;
+            animation: shine 5s linear infinite;
+        }
+        @keyframes shine {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
-        /* Sub-headline Styles */
         h2 {
-            font-size: 1.5rem; /* Good size */
-            color: #A0AEC0; /* Softer grey */
-            font-weight: 400; /* Regular weight */
-            margin-bottom: 2rem;
-            max-width: 600px; /* Keep it from stretching too wide */
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.5rem;
+            color: #A0AEC0;
+            font-weight: 400;
+            margin: 1rem auto 2rem;
+            max-width: 600px;
         }
-
-        /* Paragraph Styles */
+        
         p {
             color: #CBD5E0;
-            font-size: 1.1rem; /* Slightly larger for readability */
-            margin-bottom: 3rem; /* More space before the form */
-            max-width: 600px; /* Keep it from stretching too wide */
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.1rem;
+            margin: 0 auto 3rem;
+            max-width: 600px;
         }
-
-        /* Tally Form Container (to center the embedded form) */
+        
         .tally-form-container {
-            margin-top: 2rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: center; /* Center the form */
+            margin: 0 auto;
         }
-
-        /* Footer Text */
+        
         .footer-text {
-            color: #718096; /* Muted grey */
+            color: #718096;
             font-size: 0.9rem;
             margin-top: 2rem;
-            font-weight: 300; /* Lighter weight */
+            font-weight: 300;
         }
 
-        /* Responsive Adjustments */
+        /* --- Responsive Adjustments --- */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             h2 { font-size: 1.2rem; }
-            p { font-size: 1rem; }
             .container { padding: 30px; }
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1rem; }
-            .container { padding: 20px; border-radius: 8px; }
         }
     </style>
 </head>
 <body>
+    <div class="aurora-container">
+        <div class="aurora-shape aurora-shape-1"></div>
+        <div class="aurora-shape aurora-shape-2"></div>
+    </div>
+    
     <div class="container">
-        <div class="content-wrapper">
-            <h1>Stop Working For Free.</h1>
-            <h2>The tool that kills scope creep for freelance developers.</h2>
-            <p>ScopeCtrl is a simple tool for creating a "Living Scope" document for your clients. When they ask for extra work, our simple "Change Request" workflow lets you get approval on new costs and timelines professionally, without awkward conversations.</p>
-            
-            <div class="tally-form-container">
-                <iframe data-tally-src="https://tally.so/embed/mORevK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="473" frameborder="0" marginheight="0" marginwidth="0" title="
+        <svg class="logo animated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-9.41V15h4v-4.41l-2-2-2 2zM12 6c.83 0 1.5.67 1.5 1.5S12.83 9 12 9s-1.5-.67-1.5-1.5S11.17 6 12 6z"/></svg>
 
-Join the Waitlist for ScopeCtrl
-"></iframe>
-<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>            </div>
-
-            <p class="footer-text">Join now for early access & a 50% lifetime discount.</p>
+        <h1 class="animated">Stop Working For Free.</h1>
+        <h2 class="animated">The tool that kills scope creep for freelance developers.</h2>
+        <p class="animated">ScopeCtrl is a simple tool for creating a "Living Scope" document for your clients. When they ask for extra work, our simple "Change Request" workflow lets you get approval on new costs and timelines professionally, without awkward conversations.</p>
+        
+        <div class="tally-form-container animated">
+            <iframe data-tally-src="https://tally.so/embed/mORevK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="172" frameborder="0" marginheight="0" marginwidth="0" title="Join the Waitlist for ScopeCtrl"></iframe>
+            <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
         </div>
+
+        <p class="footer-text animated">Join now for early access & a 50% lifetime discount.</p>
     </div>
 </body>
 </html>
