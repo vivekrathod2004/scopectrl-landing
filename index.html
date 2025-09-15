@@ -4,20 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScopeCtrl - Stop Working For Free</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #1A202C; color: #E2E8F0; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
-        .container { max-width: 500px; padding: 2rem; }
-        h1 { font-size: 2.5rem; color: #FFFFFF; margin-bottom: 0.5rem; }
-        h2 { font-size: 1.25rem; color: #A0AEC0; font-weight: normal; margin-bottom: 1.5rem; }
-        p { color: #CBD5E0; line-height: 1.6; margin-bottom: 2rem; }
+        /* General Body Styles */
+        body {
+            background-color: #0A0A0A; /* Deep Charcoal Background */
+            color: #E0E0E0; /* Light Grey Text */
+            font-family: 'Inter', sans-serif; /* Modern Font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure full viewport height */
+            margin: 0;
+            padding: 20px; /* Add some padding on smaller screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+            line-height: 1.6;
+        }
+
+        /* Main Container for the content */
+        .container {
+            max-width: 700px; /* Wider container */
+            width: 100%; /* Ensure it takes full width on smaller screens */
+            padding: 40px; /* More padding inside the box */
+            background-color: #1A1A1A; /* Slightly lighter box background */
+            border-radius: 12px; /* Smoother corners */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+            text-align: center;
+            border: 1px solid #333333; /* Soft border */
+            position: relative;
+            overflow: hidden; /* For background gradient */
+        }
+
+        /* Background Gradient within the container for visual interest */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(70, 70, 70, 0.1) 0%, rgba(10, 10, 10, 0) 70%);
+            animation: rotateGradient 15s linear infinite; /* Subtle animation */
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        /* Animation for the background gradient */
+        @keyframes rotateGradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Ensure content is above the background gradient */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Headline Styles */
+        h1 {
+            font-size: 3.5rem; /* Larger, more impactful */
+            color: #E2E8F0; /* Brighter white */
+            margin-bottom: 0.5rem;
+            font-weight: 700; /* Bold */
+            letter-spacing: -0.04em; /* Tighter for a modern look */
+        }
+
+        /* Sub-headline Styles */
+        h2 {
+            font-size: 1.5rem; /* Good size */
+            color: #A0AEC0; /* Softer grey */
+            font-weight: 400; /* Regular weight */
+            margin-bottom: 2rem;
+            max-width: 600px; /* Keep it from stretching too wide */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Paragraph Styles */
+        p {
+            color: #CBD5E0;
+            font-size: 1.1rem; /* Slightly larger for readability */
+            margin-bottom: 3rem; /* More space before the form */
+            max-width: 600px; /* Keep it from stretching too wide */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Tally Form Container (to center the embedded form) */
+        .tally-form-container {
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center; /* Center the form */
+        }
+
+        /* Footer Text */
+        .footer-text {
+            color: #718096; /* Muted grey */
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            font-weight: 300; /* Lighter weight */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.2rem; }
+            p { font-size: 1rem; }
+            .container { padding: 30px; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1rem; }
+            .container { padding: 20px; border-radius: 8px; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Stop Working For Free.</h1>
-        <h2>The tool that kills scope creep for freelance developers.</h2>
-        <p>ScopeCtrl is a simple tool for creating a "Living Scope" document for your clients. When they ask for extra work, our simple "Change Request" workflow lets you get approval on new costs and timelines professionally, without awkward conversations.</p>
+        <div class="content-wrapper">
+            <h1>Stop Working For Free.</h1>
+            <h2>The tool that kills scope creep for freelance developers.</h2>
+            <p>ScopeCtrl is a simple tool for creating a "Living Scope" document for your clients. When they ask for extra work, our simple "Change Request" workflow lets you get approval on new costs and timelines professionally, without awkward conversations.</p>
+            
+            <div class="tally-form-container">
+                <script async src="https://tally.so/widgets/embed.js"></script>
+                 <iframe data-tally-src="https://tally.so/r/wg7XzB?transparentBackground=1" loading="lazy" width="100%" height="250" frameborder="0" marginheight="0" marginwidth="0" title="Join ScopeCtrl Waitlist"></iframe>
+            </div>
 
+            <p class="footer-text">Join now for early access & a 50% lifetime discount.</p>
         </div>
+    </div>
 </body>
 </html>
