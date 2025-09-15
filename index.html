@@ -14,6 +14,7 @@
             --text-secondary: #A0AEC0;
             --brand-purple: #8A5CF4;
         }
+        html { scroll-behavior: smooth; }
         body {
             background-color: var(--dark-bg);
             color: var(--text-primary);
@@ -21,8 +22,24 @@
             margin: 0;
             line-height: 1.7;
         }
-        .section { padding: 100px 20px; text-align: center; }
+        .section { padding: 120px 20px; text-align: center; }
         .container { max-width: 800px; margin: 0 auto; }
+
+        /* --- Animation Engine --- */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Staggered animation delays */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
 
         /* --- Hero Section --- */
         #hero h1 {
@@ -33,87 +50,128 @@
         }
         #hero h2 {
             font-size: 1.5rem; color: var(--text-secondary); font-weight: 400;
-            margin: 0 auto 2.5rem; max-width: 600px;
+            margin: 0 auto: 2.5rem; max-width: 600px;
         }
-
-        /* --- Benefits Section --- */
-        .benefits-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 20px; text-align: left; margin-top: 3rem;
-        }
-        .benefit-card { padding: 16px; }
-        .benefit-card h3 { margin: 0 0 10px; font-size: 1.1rem; }
-        .benefit-card p { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
-        .icon { font-size: 1.5rem; margin-bottom: 1rem; color: var(--brand-purple); }
 
         /* --- Sneak Peek Section --- */
         #sneak-peek { background-color: var(--light-bg); }
-        .sneak-peek-image-wrapper { margin-top: 3rem; }
         .section-title { font-size: 2.5rem; font-weight: 700; color: var(--text-primary); }
         .section-subtitle { color: var(--text-secondary); font-size: 1.2rem; max-width: 600px; margin: 1rem auto 0; }
         
+        /* --- SVG Animation --- */
+        .sneak-peek-svg .svg-bg { animation: fadeIn 1s 0.2s both; }
+        .sneak-peek-svg .svg-header { animation: fadeIn 1s 0.4s both; }
+        .sneak-peek-svg #scope-item-1 { animation: fadeIn 1s 0.6s both; }
+        .sneak-peek-svg #scope-item-2 { animation: fadeIn 1s 0.8s both; }
+        .sneak-peek-svg #change-request-title { animation: fadeIn 1s 1s both; }
+        .sneak-peek-svg #change-request-box { animation: fadeIn 1s 1.2s both; }
+        .sneak-peek-svg #cost-pill { animation: popIn 0.5s 1.5s both cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popIn { 
+            0% { opacity: 0; transform: scale(0.5); } 
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- Who is this for Section --- */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; margin-top: 3rem; }
+        .card { background-color: var(--light-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .card h3 { margin: 0 0 10px; }
+        .card p { margin: 0; color: var(--text-secondary); }
+
+        /* --- CTA Section (New!) --- */
+        #cta { background-color: var(--light-bg); }
+        #cta .container { max-width: 650px; }
+        .cta-box { background-color: var(--dark-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; }
+
         /* --- Founder Note Section --- */
-        .founder-box { max-width: 650px; margin: 3rem auto 0; padding: 32px; border: 1px solid var(--border-color); border-radius: 12px; text-align: left; background-color: #0c0c0c; }
+        .founder-box { max-width: 650px; margin: 3rem auto 0; padding: 32px; text-align: left; }
         .founder-box p { color: var(--text-secondary); font-size: 1.1rem; font-style: italic; }
         .founder-box .signature { font-style: normal; font-weight: 600; color: var(--text-primary); margin-top: 1rem; display: block; }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             #hero h1 { font-size: 3rem; }
-            .benefits-grid { grid-template-columns: 1fr; }
-            .section { padding: 60px 20px; }
+            .grid { grid-template-columns: 1fr; }
+            .section { padding: 80px 20px; }
         }
     </style>
 </head>
 <body>
 
     <div id="hero" class="section">
-        <div class="container">
+        <div class="container animate-on-scroll">
             <h1>Never Work For Free Again.</h1>
-            <h2>ScopeCtrl is the simple, professional way to document your project scope and get paid for every single change request. Effortlessly.</h2>
-            
-            <iframe data-tally-src="https://tally.so/embed/mORevK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="223" frameborder="0" marginheight="0" marginwidth="0" title="
-                Join the Waitlist for ScopeCtrl"></iframe>
-            <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-<!--             <iframe data-tally-src="https://tally.so/embed/mORevK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="172" frameborder="0" marginheight="0" marginwidth="0" title="Join the Waitlist for ScopeCtrl"></iframe> -->
-
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="icon">✓</div>
-                    <h3>Protect Your Time</h3>
-                    <p>Stop unpaid work from destroying your deadlines and profitability.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="icon">📈</div>
-                    <h3>Command Your Value</h3>
-                    <p>Turn awkward conversations into a professional process that builds client trust.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="icon">🧘</div>
-                    <h3>Freelance with Confidence</h3>
-                    <p>Get a single source of truth for your project scope and eliminate arguments.</p>
-                </div>
-            </div>
+            <h2 class="delay-1">ScopeCtrl is the simple, professional way to document your project scope and get paid for every single change request. Effortlessly.</h2>
         </div>
     </div>
 
     <div id="sneak-peek" class="section">
         <div class="container">
-            <h2 class="section-title">From "Can you just..." to "Approved."</h2>
-            <p class="section-subtitle">Visualize the moment a client's "small tweak" becomes a paid, documented part of your project. No arguments, no ambiguity.</p>
-            <div class="sneak-peek-image-wrapper">
-                <svg width="100%" viewBox="0 0 784 438" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="784" height="438" rx="12" fill="#1E1E1E"/><rect x="0.5" y="0.5" width="783" height="437" rx="11.5" stroke="url(#paint0_linear_101_2)"/><rect x="30" y="30" width="724" height="50" rx="6" fill="#282828"/><circle cx="50" cy="55" r="7" fill="#444"/><circle cx="75" cy="55" r="7" fill="#444"/><circle cx="100" cy="55" r="7" fill="#444"/><text fill="#A0AEC0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" letter-spacing="0em"><tspan x="130" y="60.5">Project: Bakery Website Redesign</tspan></text><text fill="#F0F0F0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="16" font-weight="600" letter-spacing="0em"><tspan x="30" y="123.5">✅ In Scope</tspan></text><rect x="30" y="145" width="724" height="50" rx="6" fill="#282828"/><path d="M50 165L55 170L65 160" stroke="#34D399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text fill="#CBD5E0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" letter-spacing="0em"><tspan x="80" y="170.5">Setup Authentication & User Login</tspan></text><rect x="30" y="205" width="724" height="50" rx="6" fill="#282828"/><path d="M50 225L55 230L65 220" stroke="#34D399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text fill="#CBD5E0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" letter-spacing="0em"><tspan x="80" y="230.5">Deploy Final Site to Vercel</tspan></text><text fill="#F0F0F0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="16" font-weight="600" letter-spacing="0em"><tspan x="30" y="298.5">⚠️ New Change Request</tspan></text><rect x="30" y="320" width="724" height="88" rx="6" fill="#282828"/><rect x="29.5" y="319.5" width="725" height="89" rx="6.5" stroke="#8A5CF4" stroke-width="2"/><text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="16" font-weight="600" letter-spacing="0em"><tspan x="50" y="352.5">Feature: Add Dark Mode Toggle</tspan></text><text fill="#A0AEC0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" letter-spacing="0em"><tspan x="50" y="380.5">Timeline: +8 hours</tspan></text><rect x="580" y="347" width="154" height="34" rx="17" fill="#8A5CF4"/><text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0em"><tspan x="613" y="369.5">Cost: +$640</tspan></text><defs><linearGradient id="paint0_linear_101_2" x1="0" y1="0" x2="784" y2="438" gradientUnits="userSpaceOnUse"><stop stop-color="rgba(255,255,255,0.2)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient></defs></svg>
+            <h2 class="section-title animate-on-scroll">From "Can you just..." to "Approved."</h2>
+            <p class="section-subtitle animate-on-scroll delay-1">Visualize the moment a client's "small tweak" becomes a paid, documented part of your project. No arguments, no ambiguity.</p>
+            <div class="sneak-peek-image-wrapper animate-on-scroll delay-2">
+                <svg class="sneak-peek-svg" width="100%" viewBox="0 0 784 438" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="svg-bg" width="784" height="438" rx="12" fill="#0c0c0c"/><rect class="svg-bg" x="0.5" y="0.5" width="783" height="437" rx="11.5" stroke="url(#paint0_linear_101_2)"/>
+                    <g class="svg-header"><rect x="30" y="30" width="724" height="50" rx="6" fill="#1E1E1E"/><circle cx="50" cy="55" r="7" fill="#333"/><circle cx="75" cy="55" r="7" fill="#333"/><circle cx="100" cy="55" r="7" fill="#333"/><text fill="#A0AEC0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14"><tspan x="130" y="60.5">Project: Bakery Website Redesign</tspan></text></g>
+                    <g id="scope-item-1"><text fill="#F0F0F0" font-family="Inter, sans-serif" font-size="16" font-weight="600"><tspan x="30" y="123.5">✅ In Scope</tspan></text><rect x="30" y="145" width="724" height="50" rx="6" fill="#1E1E1E"/><path d="M50 165L55 170L65 160" stroke="#34D399" stroke-width="3" stroke-linecap="round"/><text fill="#CBD5E0" font-family="Inter, sans-serif" font-size="14"><tspan x="80" y="170.5">Setup Authentication & User Login</tspan></text></g>
+                    <g id="scope-item-2"><rect x="30" y="205" width="724" height="50" rx="6" fill="#1E1E1E"/><path d="M50 225L55 230L65 220" stroke="#34D399" stroke-width="3" stroke-linecap="round"/><text fill="#CBD5E0" font-family="Inter, sans-serif" font-size="14"><tspan x="80" y="230.5">Deploy Final Site to Vercel</tspan></text></g>
+                    <g id="change-request-title"><text fill="#F0F0F0" font-family="Inter, sans-serif" font-size="16" font-weight="600"><tspan x="30" y="298.5">⚠️ New Change Request</tspan></text></g>
+                    <g id="change-request-box"><rect x="30" y="320" width="724" height="88" rx="6" fill="#1E1E1E"/><rect x="29.5" y="319.5" width="725" height="89" rx="6.5" stroke="#8A5CF4" stroke-width="2"/><text fill="white" font-family="Inter, sans-serif" font-size="16" font-weight="600"><tspan x="50" y="352.5">Feature: Add Dark Mode Toggle</tspan></text><text fill="#A0AEC0" font-family="Inter, sans-serif" font-size="14"><tspan x="50" y="380.5">Timeline: +8 hours</tspan></text></g>
+                    <g id="cost-pill"><rect x="580" y="347" width="154" height="34" rx="17" fill="#8A5CF4"/><text fill="white" font-family="Inter, sans-serif" font-size="14" font-weight="600"><tspan x="613" y="369.5">Cost: +$640</tspan></text></g>
+                    <defs><linearGradient id="paint0_linear_101_2" x1="0" y1="0" x2="784" y2="438" gradientUnits="userSpaceOnUse"><stop stop-color="rgba(255,255,255,0.2)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient></defs>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div id="who-is-this-for" class="section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Built For The Modern Developer</h2>
+            <div class="grid">
+                <div class="card animate-on-scroll delay-1"><h3>Freelance Web Developers</h3><p>Stop scope creep from killing your project profitability and timelines.</p></div>
+                <div class="card animate-on-scroll delay-2"><h3>Upwork/Fiverr Developers</h3><p>Stand out with a professional process for handling project changes.</p></div>
+                <div class="card animate-on-scroll delay-3"><h3>Agency Owners</h3><p>Ensure your team gets paid for every extra feature request, protecting your bottom line.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cta" class="section">
+        <div class="container">
+            <div class="cta-box animate-on-scroll">
+                <h2 class="section-title">Ready to Protect Your Profit?</h2>
+                <p class="section-subtitle">Join the waitlist for early access and a 50% lifetime discount. Be the first to know when ScopeCtrl launches.</p>
+                <iframe data-tally-src="https://tally.so/embed/mORevK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="172" frameborder="0" marginheight="0" marginwidth="0" title="Join the Waitlist for ScopeCtrl"></iframe>
             </div>
         </div>
     </div>
 
     <div id="founder-note" class="section">
         <div class="container">
-            <div class="founder-box">
+            <div class="founder-box animate-on-scroll">
                 <p>"Hey, I'm Vivek. As a developer here in India, I've lived the unique frustration of scope creep—the unpaid hours, the awkward client calls, the feeling that you're losing money on a 'successful' project. I'm building ScopeCtrl to be the simple, professional shield I wish I always had."</p>
                 <p class="signature">- Vivek Rathod, Founder of ScopeCtrl</p>
             </div>
         </div>
     </div>
+
+    <script>
+        // Simple script to add a class to elements when they scroll into view
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
 </body>
 </html>
