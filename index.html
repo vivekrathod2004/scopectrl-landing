@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScopeCtrl - Stop Working For Free</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --dark-bg: #050505;
+            --dark-bg: #0A0A0A;
             --light-bg: #111111;
             --border-color: rgba(255, 255, 255, 0.1);
             --text-primary: #F0F0F0;
@@ -23,23 +23,15 @@
             margin: 0;
             line-height: 1.7;
         }
-        .section { padding: 120px 20px; }
-        .container { max-width: 800px; margin: 0 auto; text-align: center; }
+        .section { padding: 120px 20px; text-align: center; }
+        .container { max-width: 800px; margin: 0 auto; }
 
-        /* --- NEW: Enhanced Animation Engine --- */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px) scale(0.98); /* Added scale for more pop */
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .animate-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+        /* --- Animation Engine --- */
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
-        /* --- Hero Section (Centering Fixed) --- */
-        #hero .container { text-align: center; } /* FIX: Ensures all content inside is centered */
+        /* --- Hero Section --- */
         #hero h1 {
             font-size: 4.5rem; font-weight: 800; letter-spacing: -0.05em;
             background: linear-gradient(90deg, #ffffff, #aaaaaa);
@@ -50,7 +42,7 @@
             font-size: 1.5rem; color: var(--text-secondary); font-weight: 400;
             margin: 0 auto 2.5rem; max-width: 600px;
         }
-        
+
         /* --- Custom Form Styles --- */
         .custom-form {
             display: flex; justify-content: center; align-items: center;
@@ -73,19 +65,32 @@
             transition: background-color 0.3s; white-space: nowrap;
         }
         .submit-button:hover { background-color: var(--brand-purple-hover); }
-        
-        /* --- Other Sections --- */
-        #sneak-peek { background-color: var(--light-bg); }
-        .section-title { font-size: 2.5rem; font-weight: 700; color: var(--text-primary); }
-        .section-subtitle { color: var(--text-secondary); font-size: 1.2rem; max-width: 600px; margin: 1rem auto 0; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; margin-top: 3rem; }
-        .card { background-color: var(--light-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); }
-        .founder-box { max-width: 650px; margin: 3rem auto 0; padding: 32px; text-align: left; }
 
+        /* --- Problem/Story Section (New!) --- */
+        #problem { background-color: var(--light-bg); }
+        .story-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            text-align: left;
+        }
+        .story-text { flex: 1; }
+        .story-visual { flex: 1; }
+        .section-title { font-size: 2.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; }
+        .section-subtitle { color: var(--text-secondary); font-size: 1.2rem; max-width: 600px; margin-top: 1rem; margin-bottom: 2rem; }
+        
+        /* --- Sneak Peek & Other Sections --- */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; margin-top: 3rem; }
+        .card { background-color: #181818; padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .founder-box { max-width: 650px; margin: 3rem auto 0; padding: 32px; text-align: left; border: 1px solid var(--border-color); border-radius: 12px; }
+        .footer { padding: 40px 20px; text-align: center; color: var(--text-secondary); font-size: 0.9rem; border-top: 1px solid var(--border-color);}
+
+        /* Responsive */
         @media (max-width: 768px) {
             #hero h1 { font-size: 3rem; }
             .grid, .custom-form { grid-template-columns: 1fr; flex-direction: column; }
             .section { padding: 80px 20px; }
+            .story-container { flex-direction: column; }
         }
     </style>
 </head>
@@ -95,33 +100,75 @@
         <div class="container animate-on-scroll">
             <h1>Never Work For Free Again.</h1>
             <h2 class="delay-1">ScopeCtrl is the simple, professional way to document your project scope and get paid for every single change request. Effortlessly.</h2>
-
             <form class="custom-form delay-2" name="waitlist" method="POST" data-netlify="true">
                 <input class="form-input" type="email" name="email" placeholder="Enter your email address" required>
                 <button class="submit-button" type="submit">Join the Waitlist</button>
             </form>
-
             <p class="animate-on-scroll delay-3" style="font-size: 0.9rem; color: var(--text-secondary);">Join now for early access & a 50% lifetime discount.</p>
         </div>
     </div>
     
+    <div id="problem" class="section">
+        <div class="container">
+            <div class="story-container">
+                <div class="story-text animate-on-scroll">
+                    <h2 class="section-title" style="text-align: left;">It starts with "Can you just..."</h2>
+                    <p class="section-subtitle" style="text-align: left; margin-left: 0;">That's the sound of **scope creep**—the small, "quick" requests that clients make, which slowly add up to hours, or even days, of unpaid work. It's the #1 reason why profitable projects become stressful money-losers.</p>
+                    <p style="color: var(--text-secondary); text-align: left;">You're forced to choose between being the "bad guy" who invoices for every small change, or doing free work that destroys your deadlines and your income. **ScopeCtrl is designed to end this dilemma.**</p>
+                </div>
+                <div class="story-visual animate-on-scroll delay-2">
+                    <svg width="100%" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" rx="12" fill="#0A0A0A"/>
+                        <path d="M50 100 C 150 50, 250 150, 350 100" stroke="#333333" stroke-width="2" fill="none"/>
+                        <path d="M50 100 C 150 120, 250 130, 350 100" stroke="#8A5CF4" stroke-width="3" stroke-dasharray="5 5" fill="none" class="animate-creep"/>
+                        <text x="50" y="90" font-family="Inter" font-size="12" fill="#CCCCCC">Initial Scope</text>
+                        <text x="180" y="155" font-family="Inter" font-size="12" fill="#8A5CF4" font-weight="600">"Quick Tweaks" = 😩</text>
+                        <style>
+                            .animate-creep {
+                                stroke-dashoffset: 0;
+                                animation: dash 2s linear infinite;
+                            }
+                            @keyframes dash { to { stroke-dashoffset: -20; } }
+                        </style>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="sneak-peek" class="section">
         <div class="container">
-            <h2 class="section-title animate-on-scroll">From "Can you just..." to "Approved."</h2>
-            <p class="section-subtitle animate-on-scroll delay-1">Visualize the moment a client's "small tweak" becomes a paid, documented part of your project.</p>
-            <div class="sneak-peek-image-wrapper animate-on-scroll delay-2">
-                <svg width="100%" viewBox="0 0 784 438" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="784" height="438" rx="12" fill="#1E1E1E"/><rect x="0.5" y="0.5" width="783" height="437" rx="11.5" stroke="url(#paint0_linear_101_2)"/><rect x="30" y="30" width="724" height="50" rx="6" fill="#282828"/><circle cx="50" cy="55" r="7" fill="#444"/><circle cx="75" cy="55" r="7" fill="#444"/><circle cx="100" cy="55" r="7" fill="#444"/><text fill="#A0AEC0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" letter-spacing="0em"><tspan x="130" y="60.5">Project: Bakery Website Redesign</tspan></text><text fill="#F0F0F0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="16" font-weight="600" letter-spacing="0em"><tspan x="30" y="123.5">✅ In Scope</tspan></text><rect x="30" y="145" width="724" height="50" rx="6" fill="#282828"/><path d="M50 165L55 170L65 160" stroke="#34D399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text fill="#CBD5E0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" letter-spacing="0em"><tspan x="80" y="170.5">Setup Authentication & User Login</tspan></text><rect x="30" y="205" width="724" height="50" rx="6" fill="#282828"/><path d="M50 225L55 230L65 220" stroke="#34D399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text fill="#CBD5E0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" letter-spacing="0em"><tspan x="80" y="230.5">Deploy Final Site to Vercel</tspan></text><text fill="#F0F0F0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="16" font-weight="600" letter-spacing="0em"><tspan x="30" y="298.5">⚠️ New Change Request</tspan></text><rect x="30" y="320" width="724" height="88" rx="6" fill="#282828"/><rect x="29.5" y="319.5" width="725" height="89" rx="6.5" stroke="#8A5CF4" stroke-width="2"/><text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="16" font-weight="600" letter-spacing="0em"><tspan x="50" y="352.5">Feature: Add Dark Mode Toggle</tspan></text><text fill="#A0AEC0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" letter-spacing="0em"><tspan x="50" y="380.5">Timeline: +8 hours</tspan></text><rect x="580" y="347" width="154" height="34" rx="17" fill="#8A5CF4"/><text fill="white" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0em"><tspan x="613" y="369.5">Cost: +$640</tspan></text><defs><linearGradient id="paint0_linear_101_2" x1="0" y1="0" x2="784" y2="438" gradientUnits="userSpaceOnUse"><stop stop-color="rgba(255,255,255,0.2)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient></defs>
-                </svg>
+            <h2 class="section-title animate-on-scroll">From "Request" to "Revenue."</h2>
+            <p class="section-subtitle animate-on-scroll delay-1">Visualize turning a client's business-critical request into a paid, documented, and professional part of your project.</p>
+            <div class="animate-on-scroll delay-2">
+                <svg width="100%" viewBox="0 0 784 438" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="784" height="438" rx="12" fill="#1E1E1E"/><rect x="0.5" y="0.5" width="783" height="437" rx="11.5" stroke="url(#paint0_linear_101_2)"/><rect x="30" y="30" width="724" height="50" rx="6" fill="#282828"/><circle cx="50" cy="55" r="7" fill="#444"/><circle cx="75" cy="55" r="7" fill="#444"/><circle cx="100" cy="55" r="7" fill="#444"/><text fill="#A0AEC0" xml:space="preserve" style="white-space: pre" font-family="Inter, sans-serif" font-size="14"><tspan x="130" y="60.5">Project: E-commerce Store API</tspan></text><text fill="#F0F0F0" font-family="Inter, sans-serif" font-size="16" font-weight="600"><tspan x="30" y="123.5">✅ In Scope</tspan></text><rect x="30" y="145" width="724" height="50" rx="6" fill="#282828"/><path d="M50 165L55 170L65 160" stroke="#34D399" stroke-width="3" stroke-linecap="round"/><text fill="#CBD5E0" font-family="Inter, sans-serif" font-size="14"><tspan x="80" y="170.5">Stripe Payment Gateway Integration</tspan></text><text fill="#F0F0F0" font-family="Inter, sans-serif" font-size="16" font-weight="600"><tspan x="30" y="228.5">⚠️ New Client Request</tspan></text><rect x="30" y="250" width="724" height="158" rx="6" fill="#282828"/><rect x="29.5" y="249.5" width="725" height="159" rx="6.5" stroke="#8A5CF4" stroke-width="2"/><text fill="white" font-family="Inter, sans-serif" font-size="16" font-weight="600"><tspan x="50" y="282.5">Feature: Add "Pay with PayPal" Option</tspan></text><text fill="#A0AEC0" font-family="Inter, sans-serif" font-size="14"><tspan x="50" y="310.5">Reason: Client wants to expand to new international markets.</tspan></text><text fill="#A0AEC0" font-family="Inter, sans-serif" font-size="14"><tspan x="50" y="340.5">Impact: Requires new API endpoints, testing, and error handling.</tspan></text><text fill="#A0AEC0" font-family="Inter, sans-serif" font-size="14"><tspan x="50" y="370.5">Timeline Estimate: +12 hours</tspan></text><rect x="580" y="358" width="154" height="34" rx="17" fill="#8A5CF4"/><text fill="white" font-family="Inter, sans-serif" font-size="14" font-weight="600"><tspan x="613" y="380.5">Cost: +$960</tspan></text><defs><linearGradient id="paint0_linear_101_2" x1="0" y1="0" x2="784" y2="438" gradientUnits="userSpaceOnUse"><stop stop-color="rgba(255,255,255,0.2)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></linearGradient></defs></svg>
             </div>
         </div>
     </div>
     
     <div id="who-is-this-for" class="section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Finally, a Tool That Thinks Like a Developer.</h2>
+            <div class="grid">
+                <div class="card animate-on-scroll delay-1"><h3>Protect Your Profitability</h3><p>Stop letting small, unpaid tasks accumulate and turn profitable projects into losses.</p></div>
+                <div class="card animate-on-scroll delay-2"><h3>Build Client Trust</h3><p>Replace awkward arguments with a transparent, professional process that clients respect.</p></div>
+                <div class="card animate-on-scroll delay-3"><h3>Focus On The Code</h3><p>Spend more time on what you do best—building great software—and less time on painful admin.</p></div>
+            </div>
         </div>
-    
+    </div>
+
     <div id="founder-note" class="section">
+        <div class="container">
+            <div class="founder-box animate-on-scroll">
+                <p>"Hey, I'm Vivek. As a developer here in India, I've lived the frustration of scope creep—the unpaid hours, the awkward client calls, and the feeling that you're losing money on a 'successful' project. I'm building ScopeCtrl to be the simple, professional shield I wish I always had."</p>
+                <p class="signature">- Vivek Rathod, Founder of ScopeCtrl</p>
+            </div>
         </div>
+    </div>
+
+    <div class="footer">
+        © 2025 ScopeCtrl. All rights reserved.
+    </div>
 
     <script>
         const animatedElements = document.querySelectorAll('.animate-on-scroll');
