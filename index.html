@@ -32,6 +32,7 @@
         .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
         /* --- Hero Section --- */
+        #hero { min-height: 80vh; display: flex; align-items: center; }
         #hero h1 {
             font-size: 4.5rem; font-weight: 800; letter-spacing: -0.05em;
             background: linear-gradient(90deg, #ffffff, #aaaaaa);
@@ -42,69 +43,38 @@
             font-size: 1.5rem; color: var(--text-secondary); font-weight: 400;
             margin: 0 auto 2.5rem; max-width: 600px;
         }
-
-        /* --- Custom Form Styles --- */
-        .custom-form {
-            display: flex; justify-content: center; align-items: center;
-            gap: 10px; max-width: 500px; margin: 2.5rem auto;
+        .cta-button {
+            display: inline-block; padding: 16px 32px; font-size: 1.1rem;
+            font-weight: 600; background-color: var(--brand-purple); color: white;
+            border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s;
+            text-decoration: none; box-shadow: 0 4px 15px rgba(138, 92, 244, 0.3);
+            margin: 2.5rem 0 1.5rem;
         }
-        .form-input {
-            flex-grow: 1; padding: 14px 20px; font-size: 1rem;
-            font-family: 'Inter', sans-serif; background-color: #1a1a1a;
-            border: 1px solid var(--border-color); border-radius: 8px;
-            color: var(--text-primary); transition: border-color 0.3s, box-shadow 0.3s;
+        .cta-button:hover {
+            background-color: var(--brand-purple-hover); transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 92, 244, 0.4);
         }
-        .form-input:focus {
-            outline: none; border-color: var(--brand-purple);
-            box-shadow: 0 0 0 3px rgba(138, 92, 244, 0.3);
+        .scroll-down {
+            display: inline-block; margin-top: 3rem; color: var(--text-secondary);
+            text-decoration: none; font-size: 0.9rem;
         }
-        .submit-button {
-            padding: 14px 28px; font-size: 1rem; font-weight: 600;
-            font-family: 'Inter', sans-serif; background-color: var(--brand-purple);
-            color: white; border: none; border-radius: 8px; cursor: pointer;
-            transition: background-color 0.3s; white-space: nowrap;
-        }
-        .submit-button:hover { background-color: var(--brand-purple-hover); }
-
-        /* --- Generic Section Title Styles --- */
-        .section-title { font-size: 2.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; }
-        .section-subtitle { 
-            color: var(--text-secondary); 
-            font-size: 1.2rem; 
-            max-width: 600px; 
-            margin: 1rem auto 0; 
-            text-align: center; /* FIX: Added text-align center for perfect alignment */
-        }
-
-        /* --- Problem/Story Section --- */
+        .scroll-down span { display: block; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+        
+        /* --- Other Sections --- */
         #problem { background-color: var(--light-bg); }
         .story-container { display: flex; align-items: center; gap: 40px; text-align: left; }
-        .story-text { flex: 1; }
-        .story-visual { flex: 1; }
-        #problem .section-title, #problem .section-subtitle { text-align: left; margin-left: 0; }
-        #problem p { text-align: left; }
-
-        /* --- Who Is This For Section --- */
+        .section-title { font-size: 2.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; }
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; margin-top: 3rem; }
         .card { background-color: #181818; padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); }
-        .card h3 { margin: 0 0 10px; color: var(--text-primary); }
-        .card p { margin: 0; color: var(--text-secondary); }
-
-        /* --- Founder Note Section --- */
         .founder-box { max-width: 650px; margin: 3rem auto 0; padding: 32px; text-align: left; border: 1px solid var(--border-color); border-radius: 12px; }
-        .founder-box p { color: var(--text-secondary); font-size: 1.1rem; font-style: italic; }
-        .founder-box .signature { font-style: normal; font-weight: 600; color: var(--text-primary); margin-top: 1rem; display: block; }
-        
-        /* --- Footer --- */
         .footer { padding: 40px 20px; text-align: center; color: var(--text-secondary); font-size: 0.9rem; border-top: 1px solid var(--border-color);}
 
-        /* --- Responsive --- */
         @media (max-width: 768px) {
             #hero h1 { font-size: 3rem; }
-            .grid, .custom-form { grid-template-columns: 1fr; flex-direction: column; }
+            .grid { grid-template-columns: 1fr; }
             .section { padding: 80px 20px; }
             .story-container { flex-direction: column; }
-            .section-title { font-size: 2rem; }
         }
     </style>
 </head>
@@ -114,11 +84,17 @@
         <div class="container animate-on-scroll">
             <h1>Never Work For Free Again.</h1>
             <h2 class="delay-1">ScopeCtrl is the simple, professional way to document your project scope and get paid for every single change request. Effortlessly.</h2>
-            <form class="custom-form delay-2" name="waitlist" method="POST" data-netlify="true">
-                <input class="form-input" type="email" name="email" placeholder="Enter your email address" required>
-                <button class="submit-button" type="submit">Join the Waitlist</button>
-            </form>
+            
+            <a href="https://scopectrl.kit.com/126a7fac5d" data-formkit-toggle="126a7fac5d" class="cta-button animate-on-scroll delay-2">
+                Join the Waitlist
+            </a>
+            
             <p class="animate-on-scroll delay-3" style="font-size: 0.9rem; color: var(--text-secondary);">Join now for early access & a 50% lifetime discount.</p>
+
+            <a href="#problem" class="scroll-down animate-on-scroll delay-3">
+                Learn More
+                <span>↓</span>
+            </a>
         </div>
     </div>
     
@@ -126,19 +102,12 @@
         <div class="container">
             <div class="story-container">
                 <div class="story-text animate-on-scroll">
-                    <h2 class="section-title">It starts with "Can you just..."</h2>
-                    <p class="section-subtitle">That's the sound of **scope creep**—the small, "quick" requests that clients make, which slowly add up to hours, or even days, of unpaid work. It's the #1 reason why profitable projects become stressful money-losers.</p>
-                    <p style="color: var(--text-secondary);">You're forced to choose between being the "bad guy" who invoices for every small change, or doing free work that destroys your deadlines and your income. **ScopeCtrl is designed to end this dilemma.**</p>
+                    <h2 class="section-title" style="text-align: left;">It starts with "Can you just..."</h2>
+                    <p class="section-subtitle" style="text-align: left; margin-left: 0;">That's the sound of **scope creep**—the small, "quick" requests from clients that slowly add up to hours of unpaid work. It's the #1 reason why profitable projects become stressful money-losers.</p>
+                    <p style="color: var(--text-secondary); text-align: left;">You're forced to choose between being the "bad guy" who invoices for every change, or doing free work that destroys your deadlines and income. **ScopeCtrl is designed to end this dilemma.**</p>
                 </div>
                 <div class="story-visual animate-on-scroll delay-2">
-                    <svg width="100%" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="400" height="300" rx="12" fill="#0A0A0A"/>
-                        <path d="M50 100 C 150 50, 250 150, 350 100" stroke="#333333" stroke-width="2" fill="none"/>
-                        <path d="M50 100 C 150 120, 250 130, 350 100" stroke="#8A5CF4" stroke-width="3" stroke-dasharray="5 5" fill="none" class="animate-creep"/>
-                        <text x="50" y="90" font-family="Inter" font-size="12" fill="#CCCCCC">Initial Scope</text>
-                        <text x="180" y="155" font-family="Inter" font-size="12" fill="#8A5CF4" font-weight="600">"Quick Tweaks" = 😩</text>
-                        <style> .animate-creep { stroke-dashoffset: 0; animation: dash 2s linear infinite; } @keyframes dash { to { stroke-dashoffset: -20; } } </style>
-                    </svg>
+                    <svg width="100%" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" rx="12" fill="#0A0A0A"/><path d="M50 100 C 150 50, 250 150, 350 100" stroke="#333333" stroke-width="2" fill="none"/><path d="M50 100 C 150 120, 250 130, 350 100" stroke="#8A5CF4" stroke-width="3" stroke-dasharray="5 5" fill="none" class="animate-creep"/><text x="50" y="90" font-family="Inter" font-size="12" fill="#CCCCCC">Initial Scope</text><text x="180" y="155" font-family="Inter" font-size="12" fill="#8A5CF4" font-weight="600">"Quick Tweaks" = 😩</text><style> .animate-creep { stroke-dashoffset: 0; animation: dash 2s linear infinite; } @keyframes dash { to { stroke-dashoffset: -20; } } </style></svg>
                 </div>
             </div>
         </div>
@@ -178,6 +147,8 @@
         © 2025 ScopeCtrl. All rights reserved.
     </div>
 
+    <script async data-uid="126a7fac5d" src="https://scopectrl.ck.page/126a7fac5d/index.js"></script>
+    
     <script>
         const animatedElements = document.querySelectorAll('.animate-on-scroll');
         const observer = new IntersectionObserver((entries) => {
